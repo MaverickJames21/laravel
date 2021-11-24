@@ -1,20 +1,38 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Like;
+use App\Models\Abbonement;
+use App\Services\UserService;
+use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
 {
+    private $userService;
+
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
+     /* @return \Illuminate\Http\Response
+
+     */
+public function __construct(UserService $userService) {
+    $this->userService = $userService;
+}
+
+
     public function index()
     {
-        //
+        //return User::all();
+        $users = $this->userService->allUser();
+        return UserResource::collection($users);
+
     }
 
     /**
@@ -23,9 +41,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
-        //
+        //Add new User
+        $users = $this->userService->addUser();
+        return new UserResource($user);
     }
 
     /**
@@ -36,7 +57,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->userService->getUser($id);
+        return new UserResource($user);
+        // Get a single user
+        /*
+        $user = User::findOrFail($id);
+        $user->posts;
+        */
+
+        // Return a single user as a resource
+
     }
 
     /**
@@ -48,7 +78,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $user = $this->userService->modifUser($id);
+        return new UserResource($user);
     }
 
     /**
@@ -59,6 +91,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = $this->userService->delUser($id);
+        return new UserResource($user);
     }
 }
