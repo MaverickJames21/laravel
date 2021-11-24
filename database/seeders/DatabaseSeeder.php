@@ -3,6 +3,12 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Appointment;
+use App\Models\Comment;
+use App\Models\Like;
+use App\Models\Billed;
 
 class DatabaseSeeder extends Seeder
 {

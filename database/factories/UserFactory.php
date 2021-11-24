@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
+
     /**
      * Define the model's default state.
      *
@@ -13,8 +14,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [    
-        
+        $email = $this->faker->email;
+        return [
+
         'first_name' => $this->faker->word,
         'last_name' => $this->faker->word,
         'mobile' => $this->faker->imageUrl(),
